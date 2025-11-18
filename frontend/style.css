@@ -1,0 +1,28 @@
+ body {
+ font - family : Arial , sans - serif ;
+ background - color : # f4f4f9 ;
+ margin : 0;
+ padding : 0;
+ }
+
+. container {
+max-width : 800 px ;
+ margin : 50 px auto ;
+ padding : 20 px ;
+ background - color : white ;
+ border - radius : 8 px ;
+ box-shadow : 0 0 10 px rgba (0 , 0 , 0 , 0.1) ;
+ }
+
+ h1 , h2 {
+ color : #007 bff ;
+ }
+ 
+# api - response , # db - response {
+ background - color : # f8f9fa ;
+ padding : 10 px ;
+ border - radius : 4 px ;
+ margin - top : 10 px ;
+white-space : pre - wrap ;
+ font - family : monospace ;
+ }

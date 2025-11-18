@@ -1,0 +1,43 @@
+1 <! DOCTYPE html >
+2 <html lang ="en">
+3 <head >
+4 <meta charset ="UTF -8">
+5 <meta name =" viewport " content =" width = device -width , initial - scale =1.0 ">
+6 <title > Frontend - TP Docker </ title >
+7 <link rel =" stylesheet " href =" style . css ">
+8 </ head >
+9 <body >
+10 <div class =" container ">
+11 <h1 > TP Docker Avanc é </h1 >
+12 <h2 > Frontend Statique </h2 >
+13 <div id="api - response "> Loading API data ... </ div >
+14 <div id="db - response "> Loading Database data ... </ div >
+15 </ div >
+16
+17 <script >
+18 async function fetchData () {
+19 try {
+20 // Fetch API status
+21 const apiResponse = await fetch ( ’ http :// localhost :3000/ api ’) ;
+if (! apiResponse . ok ) throw new Error ( ’ API request failed ’) ;
+23 const apiData = await apiResponse . json () ;
+24 document . getElementById ( ’ api - response ’) . innerText = JSON .
+stringify ( apiData , null , 2) ;
+25
+26 // Fetch database data
+27 const dbResponse = await fetch ( ’ http :// localhost :3000/ db ’) ;
+28 if (! dbResponse . ok ) throw new Error ( ’ Database request failed ’) ;
+29 const dbData = await dbResponse . json () ;
+30 document . getElementById ( ’ db - response ’) . innerText = JSON .
+stringify ( dbData , null , 2) ;
+31 } catch ( error ) {
+32 document . getElementById ( ’ api - response ’) . innerText = ‘ Error : $ {
+error . message } ‘;
+33 document . getElementById ( ’ db - response ’) . innerText = ‘ Error : $ {
+error . message } ‘;
+34 }
+35 }
+36 setTimeout ( fetchData , 1000) ;
+37 </ script >
+38 </ body >
+39 </ html >
