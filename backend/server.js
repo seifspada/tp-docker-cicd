@@ -7,24 +7,19 @@ const PORT = process.env.PORT || 3000; // Port configurable
 
 // Configuration de la base de données
 const pool = new Pool({
-  host: process.env.DB_HOST || "db",
-  port: process.env.DB_PORT || 5432,
-  user: process.env.DB_USER || "admin",
-  password: process.env.DB_PASSWORD || "secret",
-  database: process.env.DB_NAME || "mydb",
+  connectionString: process.env.DATABASE_URL || `postgresql://${process.env.DB_USER || "admin"}:${process.env.DB_PASSWORD || "secret"}@${process.env.DB_HOST || "db"}:${process.env.DB_PORT || 5432}/${process.env.DB_NAME || "mydb"}`,
+  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false, // SSL si Render
 });
 
 // Middleware CORS : autorise les requêtes cross-origin
 app.use(
   cors({
     origin: [
-      "http://localhost:8080", // Frontend via port hôte
-      "http://127.0.0.1:8080", // Alternative localhost
-      "http://localhost:*", // Tous ports localhost (DEV SEULEMENT)
-      "http://backend", // Nom service Docker (tests internes)
+      "https://tp-docker-cicd-lime.vercel.app", // frontend déployé sur Vercel
+      "http://localhost:8080",
     ],
-    methods: ["GET", "POST", "OPTIONS"], // Méthodes HTTP autorisées
-    allowedHeaders: ["Content-Type"], // Headers autorisés
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type"],
   })
 );
 
@@ -60,7 +55,7 @@ app.get("/db", async (req, res) => {
 // DÉMARRAGE SERVEUR
 app.listen(PORT, () => {
   console.log(`Backend listening on port ${PORT}`);
-  console.log(`API endpoint: http://localhost:${PORT}/api`);
-  console.log(`DB endpoint: http://localhost:${PORT}/db`);
+  console.log(`API endpoint: ${process.env.DATABASE_URL ? `https://tp-backend-docker-cicd.onrender.com/api` : `http://localhost:${PORT}/api`}`);
+  console.log(`DB endpoint: ${process.env.DATABASE_URL ? `https://tp-backend-docker-cicd.onrender.com/db` : `http://localhost:${PORT}/db`}`);
 });
 
